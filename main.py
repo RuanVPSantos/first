@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template, redirect, url_for, request
 from flask_mysqldb import MySQL
 import os
 
@@ -12,7 +12,7 @@ app.config['MYSQL_DB'] = 'railway'
 mysql = MySQL(app)
 
 
-@app.route('/form')
+@app.route('/')
 def form():
     return render_template('form.html')
 
