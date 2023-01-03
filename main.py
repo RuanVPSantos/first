@@ -2,19 +2,19 @@ from flask import Flask, jsonify, render_template, redirect, url_for, request
 import os
 import MySQLdb
 
-# db = MySQLdb.connect(host="containers-us-west-148.railway.app",
-#                      user="root",
-#                      passwd="Qrrpzrh8U0RMTmMnfuQo",
-#                      db="railway")
+db = MySQLdb.connect(host="containers-us-west-148.railway.app",
+                     user="root",
+                     passwd="Qrrpzrh8U0RMTmMnfuQo",
+                     db="railway")
 
-# cur = db.cursor()
+cur = db.cursor()
 
-# cur.execute("SELECT * FROM YOUR_TABLE_NAME")
+cur.execute("SELECT * FROM YOUR_TABLE_NAME")
 
-# for row in cur.fetchall():
-#     print(row[0])
+for row in cur.fetchall():
+    print(row[0])
 
-# db.close()
+db.close()
 
 app = Flask(__name__)
 
