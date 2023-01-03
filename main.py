@@ -9,10 +9,8 @@ db = MySQLdb.connect(host="containers-us-west-148.railway.app",
 
 cur = db.cursor()
 
-cur.execute("SELECT * FROM YOUR_TABLE_NAME")
-
-for row in cur.fetchall():
-    print(row[0])
+cur.execute("SELECT * FROM info_table")
+data = cur.fetchall()
 
 db.close()
 
@@ -21,7 +19,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def form():
-    return render_template('form.html')
+    return render_template('form.html', data=data)
 
 
 # from flask_mysqldb import MySQL
