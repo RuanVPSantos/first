@@ -12,5 +12,11 @@
         <p>age <input type = "integer" name = "age" /></p>
         <p><input type = "submit" value = "Submit" /></p>
     </form>
+    <ul>
+        {% for dat in data %}
+        <li> {{ dat }} </li>
+        {% endfor %}
+
+    </ul>
 </body>
 </html>

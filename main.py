@@ -5,9 +5,11 @@ import MySQLdb
 db = MySQLdb.connect(host="containers-us-west-148.railway.app",
                      user="root",
                      password="Qrrpzrh8U0RMTmMnfuQo",
-                     db="railway")
+                     db="railway",
+                     port=7721)
 
 cur = db.cursor()
+
 
 cur.execute("SELECT * FROM info_table")
 data = cur.fetchall()
