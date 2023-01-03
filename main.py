@@ -14,6 +14,11 @@ app.config['MYSQL_DB'] = 'railway'
 mysql = MySQL(app)
 
 
+@app.route('/')
+def index():
+    return jsonify({"Choo Choo": "Welcome to your Flask app 🚅"})
+
+
 @app.route('/form')
 def form():
     return render_template('form.html')
@@ -35,4 +40,5 @@ def login():
         return f"Done!!"
 
 
-app.run(host='localhost', port=5000)
+if __name__ == '__main__':
+    app.run(debug=True, port=os.getenv("PORT", default=5000))
