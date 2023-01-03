@@ -1,28 +1,38 @@
-from flask import Flask, jsonify, render_template, redirect, url_for, request
-import os
-import MySQLdb
+from flask import Flask, render_template, request
+from flask_mysqldb import MySQL
 
-db = MySQLdb.connect(host="containers-us-west-148.railway.app",
-                     user="root",
-                     password="Qrrpzrh8U0RMTmMnfuQo",
-                     db="railway",
-                     port=7721)
-
-cur = db.cursor()
-
-
-cur.execute("SELECT * FROM info_table")
-data = cur.fetchall()
-
-db.close()
 
 app = Flask(__name__)
+app = Flask(__name__)
+
+app.config['MYSQL_HOST'] = 'containers-us-west-148.railway.app'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'Qrrpzrh8U0RMTmMnfuQo'
+app.config['MYSQL_PORT'] = 7721
+app.config['MYSQL_DB'] = 'railway'
+
+mysql = MySQL(app)
 
 
-@app.route('/')
+@app.route('/form')
 def form():
-    return render_template('form.html', data=data)
+    return render_template('form.html')
 
 
-if __name__ == '__main__':
-    app.run(debug=True, port=os.getenv("PORT", default=5000))
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    if request.method == 'GET':
+        return "Login via the login Form"
+
+    if request.method == 'POST':
+        name = request.form['name']
+        age = request.form['age']
+        cursor = mysql.connection.cursor()
+        cursor.execute(
+            ''' INSERT INTO info_table(name, age) VALUES(%s,%s)''', (name, age))
+        mysql.connection.commit()
+        cursor.close()
+        return f"Done!!"
+
+
+app.run(host='localhost', port=5000)
